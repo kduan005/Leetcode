@@ -11,6 +11,7 @@ class Solution(object):
         :type root: TreeNode
         :rtype: int
         """
+        
         self.max = float('-inf')
 
         def traverse(root):
