@@ -12,5 +12,4 @@ class Solution(object):
         for i in range(1, n):
             H[i] = max(H[i-1], NH[i-1] - prices[i])
             NH[i] = max(NH[i-1], H[i-1] + prices[i] - fee)
-        return max(H[-1], NH[-1])
-        
+        return NH[-1]
