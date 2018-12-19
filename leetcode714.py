@@ -5,11 +5,7 @@ class Solution(object):
         :type fee: int
         :rtype: int
         """
-        n = len(prices)
-        if n <= 1: return 0
-        H, NH = [0 for i in range(n)], [0 for i in range(n)]
-        H[0], NH[0] = -prices[0], 0
-        for i in range(1, n):
-            H[i] = max(H[i-1], NH[i-1] - prices[i])
-            NH[i] = max(NH[i-1], H[i-1] + prices[i] - fee)
-        return NH[-1]
+        H, N = float('-inf'), 0
+        for price in prices:
+            H, N = max(H, N - price), max(N, H + price - fee)
+        return N
