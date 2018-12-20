@@ -1,4 +1,5 @@
 import collections, bisect
+#binary search
 class Solution(object):
     def numMatchingSubseq(self, S, words):
         """
@@ -21,4 +22,23 @@ class Solution(object):
         ans = 0
         for word in words:
             if isIn(word): ans += 1
+        return ans
+#n pointer
+class Solution(object):
+    def numMatchingSubseq(self, S, words):
+        """
+        :type S: str
+        :type words: List[str]
+        :rtype: int
+        """
+        dic = collections.defaultdict(list)
+        ans = 0
+        for word in words:
+            dic[word[0]].append(word[1:])
+        ans = 0
+        for ch in S:
+            for rest in dic.pop(ch, ()):
+                if not rest: ans += 1
+                else:
+                    dic[rest[0]].append(rest[1:])
         return ans
