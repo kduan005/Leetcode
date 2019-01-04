@@ -5,15 +5,9 @@ class Solution(object):
         :rtype: int
         """
         stack = []
-        res = 0
-        for c in S:
-            if c == ")":
-                if stack and stack[-1] == "(":
-                    stack.pop()
-                    res -= 1
-                else:
-                    res += 1
+        for ch in S:
+            if ch == ")" and stack and stack[-1] == "(":
+                stack.pop()
             else:
-                res += 1
-                stack.append(c)
-        return res
+                stack.append(ch)
+        return len(stack)
