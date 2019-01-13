@@ -4,25 +4,18 @@ class Solution(object):
         :type num: int
         :rtype: str
         """
-        res = []
-        dic = {3: {1: "M"},
-               2: {5: "D", 1: "C"},
-               1: {5: "L", 1: "X"},
-               0: {5: "V", 1: "I"}}
-        h = num / 1000
-        res.extend([dic[3][1]] * h)
-        num -= 1000 * h
-        for i in range(2, -1, -1):
-            k = num / (10 ** i)
-            m = k / 5; n = k % 5
-            if n == 4:
-                res.append(dic[i][1])
-                if m == 1:
-                    res.append(dic[i+1][1])
-                elif m == 0:
-                    res.append(dic[i][5])
+        dic = {3: {1: "M", 5:""},
+               2: {1: "C", 5: "D"},
+               1: {1: "X", 5: "L"},
+               0: {1: "I", 5: "V"}}
+        s = ""
+        for k in range(3, -1, -1):
+            d = num / (10 ** k)
+            if d == 9:
+                s += dic[k][1] + dic[k+1][1]
+            elif d == 4:
+                s += dic[k][1] + dic[k][5]
             else:
-                res.extend([dic[i][5]] * m + [dic[i][1] * n])
-            num -= k * (10 ** i)
-        return "".join(res)
-                
+                s += dic[k][5] * (d/5) + dic[k][1] * (d - d/5 * 5)
+            num %= (10 ** k)
+        return s
