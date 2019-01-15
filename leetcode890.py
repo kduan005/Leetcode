@@ -1,4 +1,3 @@
-import collections
 class Solution(object):
     def findAndReplacePattern(self, words, pattern):
         """
@@ -6,22 +5,22 @@ class Solution(object):
         :type pattern: str
         :rtype: List[str]
         """
-        def isSame(w1, w2):
-            dic, s, taken = {}, "", set()
-            for i, ch in enumerate(w1):
-                if ch in dic:
-                    s += dic[ch]
-                else:
-                    if w2[i] not in taken:
-                        s += w2[i]
-                        dic[ch] = w2[i]
-                        taken.add(w2[i])
+        def isPattern(w1, w2):
+            dic, s = {}, set()
+            for i in range(len(w1)):
+                if w1[i] not in dic:
+                    if w2[i] not in s:
+                        dic[w1[i]] = w2[i]
+                        s.add(w2[i])
                     else:
                         return False
-            return s == w2
+                else:
+                    if w2[i] != dic[w1[i]]:
+                        return False
+            return True
         res = []
         for word in words:
-            if isSame(word, pattern):
+            if isPattern(word, pattern):
                 res.append(word)
         return res
-                    
+        
