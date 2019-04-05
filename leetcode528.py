@@ -24,6 +24,26 @@ class Solution(object):
                 r = mid
         return l
 
+class MorrisTraversal(object):
+    def morrisTraversal(self, root):
+        cur = root
+        while cur:
+            if not cur.left:
+                print cur.val
+                cur = cur.right
+            else:
+                pre = cur.left
+                while pre.right and pre.right != cur:
+                    pre = pre.right
+                if not pre.right:
+                    pre.right = cur
+                    cur = cur.left
+                else:
+                    pre.right = None
+                    print cur.val
+                    cur = cur.right
+
+
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
